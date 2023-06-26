@@ -1,3 +1,5 @@
 Django>=4.1.2
 psycopg2
 uWSGI
+django-cors-headers
+django-decouple
