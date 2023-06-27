@@ -21,10 +21,7 @@ jobs:
         run: git merge --no-ff origin/main
 
       - name: Push changes
-        run: |
-          git config user.name "Dolan001"
-          git config user.email "dolankumarbairagi@gmail.com"
-          git push origin HEAD:production
+        run: git push origin HEAD:production
 
   test:
     runs-on: ubuntu-latest
