@@ -16,27 +16,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Checkout repository
-        uses: actions/checkout@production
+      - uses: actions/checkout@main
+
+      - name: Merge main -> production
+        uses: Dolan001/django-real-time-app@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          type: now
+          from_branch: main
+          target_branch: production
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fetch changes
-        run: git fetch
-
-      - name: Merge changes
-        run: git merge --no-ff origin/main
-
-#      - name: Pull changes
-#        run: git pull
-
-      - name: Push changes
-        run: git push origin HEAD:production
-
-#        uses: ad-m/github-push-action@production
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: production
   test:
     runs-on: ubuntu-latest
 
