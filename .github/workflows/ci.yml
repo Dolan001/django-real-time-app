@@ -14,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@production
+        uses: actions/checkout@v2
+        with:
+          branch: production
 
       - name: Fetch changes
         run: git fetch
