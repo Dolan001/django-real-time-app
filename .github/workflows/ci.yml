@@ -19,11 +19,11 @@ jobs:
         run: git merge --no-ff origin/main
 
       - name: Push changes
-        run: git push origin HEAD:production
-#        uses: ad-m/github-push-action@production
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: production
+#        run: git push origin HEAD:production
+        uses: ad-m/github-push-action@production
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: production
   test:
     runs-on: ubuntu-latest
 
