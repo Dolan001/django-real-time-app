@@ -7,14 +7,16 @@ on:
   pull_request:
     branches:
       - dolan
-permissions:
-  contents: write
+#permissions:
+#  contents: write
 
 jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
+        ref: main
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch changes
         run: git fetch
