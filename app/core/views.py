@@ -10,3 +10,6 @@ class SampleView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return
+
+    def get_serializer_class(self, serializer):
+        return
