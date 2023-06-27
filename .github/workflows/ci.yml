@@ -17,7 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Checkout repository
-        run: git checkout production
+        uses: actions/checkout@production
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch changes
         run: git fetch
