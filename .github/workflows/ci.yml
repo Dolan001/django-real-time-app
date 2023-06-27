@@ -16,8 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Merge development -> staging
-        uses: Dolan001/django-real-time-app@main
+      - name: Merge dolan -> main
+        uses: Dolan001/django-real-time-app/app@main
         with:
           type: now
           from_branch: dolan
