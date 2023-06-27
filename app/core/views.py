@@ -7,3 +7,6 @@ class SampleView(viewsets.ModelViewSet):
     queryset = Sample.objects.all()
     authentication_class = 'authentication'
     queryset = 'queryset'
+
+    def get_queryset(self):
+        return

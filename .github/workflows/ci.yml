@@ -2,20 +2,22 @@ name: docker and ci
 
 on:
   push:
-    branches: [dolan]
+    branches:
+      - dolan
 
 jobs:
-  merge-pull-branch:
+  merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - name: Checkout repository
+        uses: actions/checkout@main
 
-      - name: Merge dolan -> main
-        uses: Dolan001/django-real-time-app@main
+      - name: Merge changes
+        run: git merge --no-ff origin/dolan
+
+      - name: Push changes
+        uses: ad-m/github-push-action@main
         with:
-          type: now
-          from_branch: dolan
-          target_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
   test:
     runs-on: ubuntu-latest
