@@ -2,7 +2,7 @@ name: docker and ci
 
 on:
   push:
-    branches: [dolan]
+    branches: [main]
   pull_request:
     branches: [main]
 
