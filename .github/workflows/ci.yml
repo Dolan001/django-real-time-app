@@ -3,27 +3,37 @@ name: docker and ci
 on:
   push:
     branches:
-      - main
+      - dolan
   pull_request:
     branches:
-      - main
-permissions:
-  contents: write
+      - dolan
+#permissions:
+#  contents: write
+
 jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@master
 
-      - name: Fetch changes
-        run: git fetch
-
-      - name: Merge changes
-        run: git merge --no-ff origin/main
-
-      - name: Push changes
-        run: git push origin HEAD:production
+      - name: Merge development -> staging
+        uses: Dolan001/django-real-time-app@master
+        with:
+          type: now
+          from_branch: development
+          target_branch: staging
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#
+#      - name: Fetch changes
+#        run: git fetch
+#
+#      - name: Merge changes
+#        run: git merge --no-ff origin/main
+#
+#      - name: Push changes
+#        run: git push origin HEAD:production
 
   test:
     runs-on: ubuntu-latest
@@ -40,4 +50,25 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    deploy:
+      needs: [test]
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: django-github-actions-aws
+          environment_name: django-github-actions-aws
+          version_label: 12348
+          region: "us-east-2"
+          deployment_package: deploy.zip
 
