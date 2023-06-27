@@ -3,7 +3,7 @@ name: docker and ci
 on:
   push:
     branches:
-      - dolan
+      - main
 
 jobs:
   merge_and_push:
