@@ -20,7 +20,7 @@ jobs:
         run: git fetch
 
       - name: Merge changes
-        run: git merge --no-ff origin/main
+        run: git merge origin/main
 
       - name: Push changes
         run: git push origin HEAD:production
