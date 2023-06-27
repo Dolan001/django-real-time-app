@@ -15,8 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        ref: main
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          rf: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch changes
         run: git fetch
