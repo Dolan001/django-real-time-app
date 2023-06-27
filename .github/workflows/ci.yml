@@ -14,13 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@production
 
       - name: Fetch changes
         run: git fetch
 
       - name: Merge changes
-        run: git merge --no-ff origin/main
+        run: git merge origin/main
 
 #      - name: Pull changes
 #        run: git pull
