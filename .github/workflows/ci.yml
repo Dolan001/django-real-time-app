@@ -13,16 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@production
+        uses: actions/checkout@v2
 
       - name: Merge changes
         run: git merge --no-ff origin/main
 
       - name: Push changes
-        uses: ad-m/github-push-action@production
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: production
+        run: git push origin HEAD:production
+#        uses: ad-m/github-push-action@production
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          branch: production
   test:
     runs-on: ubuntu-latest
 
