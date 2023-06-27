@@ -13,3 +13,5 @@ class SampleView(viewsets.ModelViewSet):
 
     def get_serializer_class(self, serializer):
         return serializer
+    def permissions_class(self):
+        return
