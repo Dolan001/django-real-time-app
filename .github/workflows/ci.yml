@@ -7,15 +7,14 @@ on:
   pull_request:
     branches:
       - main
-
+permissions:
+  contents: write
 jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge changes
         run: git merge --no-ff origin/main
