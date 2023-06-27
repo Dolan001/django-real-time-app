@@ -7,8 +7,8 @@ on:
   pull_request:
     branches:
       - dolan
-#permissions:
-#  contents: write
+permissions:
+  contents: write
 
 jobs:
   merge_and_push:
