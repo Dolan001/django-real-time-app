@@ -3,3 +3,4 @@ psycopg2
 uWSGI
 django-cors-headers
 django-decouple
+djangorestframework
