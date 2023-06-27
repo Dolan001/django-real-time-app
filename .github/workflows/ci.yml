@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@main
 
       - name: Merge main -> production
-        uses: Dolan001/django-real-time-app@main
+        uses: Dolan001/django-real-time-app/app@main
         with:
           type: now
           from_branch: main
