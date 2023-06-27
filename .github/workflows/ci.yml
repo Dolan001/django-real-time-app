@@ -7,8 +7,8 @@ on:
   pull_request:
     branches:
       - main
-permissions:
-  contents: write
+#permissions:
+#  contents: write
 jobs:
   merge_and_push:
     runs-on: ubuntu-latest
@@ -16,19 +16,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Fetch changes
-        run: git pull origin main
-      - name: Push changes
-        run: git push origin production
+      - name: Merge changes
+        run: git merge --no-ff origin/main
 
-#      - name: Fetch changes
-#        run: git fetch
-#
-#      - name: Merge changes
-#        run: git merge origin/main
-#
-#      - name: Push changes
-#        run: git push origin HEAD:production
+      - name: Push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git push origin HEAD:refs/heads/production
 
   test:
     runs-on: ubuntu-latest
