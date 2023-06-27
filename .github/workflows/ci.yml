@@ -14,10 +14,10 @@ jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@main
+#        with:
+#          ref: main
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch changes
         run: git fetch
