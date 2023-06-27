@@ -14,15 +14,16 @@ jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
       - name: Merge development -> staging
-        uses: Dolan001/django-real-time-app@master
+        uses: Dolan001/django-real-time-app@main
         with:
           type: now
-          from_branch: development
-          target_branch: staging
+          from_branch: dolan
+          target_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
 #      - name: Checkout repository
 #        uses: actions/checkout@v2
 #
