@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name "Dolan001"
           git config user.email "dolankumarbairagi@gmail.com"
-          git push origin HEAD:refs/heads/production
+          git push origin HEAD:production
 
   test:
     runs-on: ubuntu-latest
