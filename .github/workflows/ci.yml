@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          rf: main
+          ref: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch changes
