@@ -15,7 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: Fetch changes
+        run: git fetch
       - name: Merge changes
         run: git merge --no-ff origin/main
 
