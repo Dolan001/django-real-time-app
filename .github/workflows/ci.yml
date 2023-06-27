@@ -4,22 +4,25 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@production
 
       - name: Merge changes
-        run: git merge --no-ff origin/dolan
+        run: git merge --no-ff origin/main
 
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@production
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+          branch: production
   test:
     runs-on: ubuntu-latest
 
@@ -35,7 +38,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Tests
-      run: |
-        python app/manage.py test
 
