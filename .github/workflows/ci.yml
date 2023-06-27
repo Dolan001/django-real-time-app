@@ -13,18 +13,17 @@ jobs:
   merge_and_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-
-      - uses: actions/checkout@main
-
-      - name: Merge main -> production
-        uses: Dolan001/django-real-time-app/app@main
         with:
-          type: now
-          from_branch: main
-          target_branch: production
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          ref: production
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge changes
+        run: git merge --no-ff origin/main
+
+      - name: Push changes
+        run: git push origin HEAD:production
 
   test:
     runs-on: ubuntu-latest
