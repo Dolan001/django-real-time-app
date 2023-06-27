@@ -19,6 +19,9 @@ jobs:
           ref: production
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Fetch changes
+        run: git fetch
+
       - name: Merge changes
         run: git merge --no-ff origin/main
 
