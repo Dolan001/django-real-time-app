@@ -21,7 +21,7 @@ jobs:
         run: git merge --no-ff origin/main
 
       - name: Push changes
-        run: git push origin HEAD:production
+        run: git push origin production
 
   test:
     runs-on: ubuntu-latest
