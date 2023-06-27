@@ -12,4 +12,4 @@ class SampleView(viewsets.ModelViewSet):
         return
 
     def get_serializer_class(self, serializer):
-        return
+        return serializer
