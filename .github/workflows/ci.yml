@@ -16,17 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-#      - name: Merge dolan -> main
-#        uses: Dolan001/django-real-time-app/app@main
-#        with:
-#          type: now
-#          from_branch: dolan
-#          target_branch: main
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
-#
       - name: Fetch changes
         run: git fetch
 
