@@ -16,11 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Fetch changes
+        run: git fetch
+
       - name: Merge changes
         run: git merge --no-ff origin/main
 
+#      - name: Pull changes
+#        run: git pull
+
       - name: Push changes
         run: git push origin HEAD:production
+
 #        uses: ad-m/github-push-action@production
 #        with:
 #          github_token: ${{ secrets.GITHUB_TOKEN }}
