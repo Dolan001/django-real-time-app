@@ -1,40 +1,14 @@
-name: docker and ci
+name: Build and Test
 
 on:
   push:
-    branches:
-      - dolan
+    branches: [main]
   pull_request:
-    branches:
-      - dolan
-#permissions:
-#  contents: write
+    branches: [main]
+  release:
+    types: [ published, edited ]
 
 jobs:
-  merge_and_push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Merge development -> staging
-        uses: Dolan001/django-real-time-app@master
-        with:
-          type: now
-          from_branch: development
-          target_branch: staging
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
-#
-#      - name: Fetch changes
-#        run: git fetch
-#
-#      - name: Merge changes
-#        run: git merge --no-ff origin/main
-#
-#      - name: Push changes
-#        run: git push origin HEAD:production
-
   test:
     runs-on: ubuntu-latest
 
@@ -50,25 +24,30 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    deploy:
-      needs: [test]
-      runs-on: ubuntu-latest
+    - name: Run Tests
+      run: |
+        python manage.py test
 
-      steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy in EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOSTNAME: ${{ secrets.HOSTNAME  }}
+          USER_NAME: ${{ secrets.USER_NAME  }}
 
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: django-github-actions-aws
-          environment_name: django-github-actions-aws
-          version_label: 12348
-          region: "us-east-2"
-          deployment_package: deploy.zip
-
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd D:\Dolan-IncrementsInc\django-practice\django-real-time-app &&
+            git checkout main &&
+            git fetch --all &&
+            git reset --hard origin/main &&
+            git pull origin main &&
+            docker-compose -f docker-compose-deploy.yml up -d --build 
